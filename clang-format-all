@@ -58,8 +58,8 @@ for dir in "$@"; do
                   -o -name '*.cc' \
                   -o -name '*.cpp' \
                   -o -name '*.h' \
-                  -o -name '.hh' \
-                  -o -name '.hpp'); do
+                  -o -name '*.hh' \
+                  -o -name '*.hpp'); do
         "${FMT}" -i "${f}"
     done
 done
