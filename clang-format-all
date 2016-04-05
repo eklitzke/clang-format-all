@@ -55,7 +55,12 @@ done
 
 # Run clang-format -i on all of the things
 for dir in "$@"; do
-    for f in $(find "${dir}" \
+    pushd "${dir}"
+    if [ ! -r .clang-format ]; then
+        echo "no .clang-format in pwd $PWD"
+        continue
+    fi
+    for f in $(find . \
                   -name '*.c' \
                   -o -name '*.cc' \
                   -o -name '*.cpp' \
@@ -64,4 +69,5 @@ for dir in "$@"; do
                   -o -name '*.hpp'); do
         "${FMT}" -i "${f}"
     done
+    popd
 done
