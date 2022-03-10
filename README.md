@@ -11,8 +11,10 @@ Features:
 
 Basic usage:
 
-    clang-format-all src/
+    clang-format-all src/  
+    ./check-all.py --root_dir src/
 
+`check-all.py`	will not modify files, it will just check them. When any file is non-compliant to style, it returns a non-zero error code. This is extremely useful for CI workflows.
 Advanced usage:
 
     clang-format-all project1/ project2/ project3/
