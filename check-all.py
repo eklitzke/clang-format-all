@@ -19,8 +19,8 @@ def parse_args():
     return args
 
 
-def is_cpp_file(path: Path):
-    return path.suffix == '.cpp'
+def is_cpp_or_c_file(path: Path):
+    return path.suffix in ['.cpp', '.cc', '.C', 'CPP', '.c++', 'cp', '.cxx', '.h', '.hh', '.hpp']
 
 
 def walk_recursive(root_dir: str):
@@ -30,7 +30,7 @@ def walk_recursive(root_dir: str):
                 walk_recursive((os.path.join(root, d)))
         for file in files:
             path = Path(os.path.join(root, file))
-            if is_cpp_file(path):
+            if is_cpp_or_c_file(path):
                 if subprocess.run(["clang-format", "--dry-run", "--Werror", "-style=file",
                                    path]).returncode != 0:
                     logger.info("\"%s\": does not comply to format according to clang-format", path)
