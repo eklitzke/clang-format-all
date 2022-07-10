@@ -1,0 +1,24 @@
+[build-system]
+
+requires = ["setuptools>=61.0", "pyyaml==6.0", "twine"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clang-format-all"
+version = "0.0.1"
+authors = [
+  { name="Lorenzo Gomez", email="yunior.eury@gmail.com" },
+]
+description = "Format entire directories of source files with clang-format. This tool also allows to check for formatting without modifying files."
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/thebigG/clang-format-all"
+"Bug Tracker" = "https://github.com/thebigG/clang-format-all/issues"
