@@ -33,7 +33,7 @@ FMT=""
 # that's present, otherwise we work backwards from highest version to lowest
 # version.
 for clangfmt in clang-format{,-{4,3}.{9,8,7,6,5,4,3,2,1,0}}; do
-    if which "$clangfmt" &>/dev/null; then
+    if command -v "$clangfmt" &>/dev/null; then
         FMT="$clangfmt"
         break
     fi
@@ -54,21 +54,21 @@ for dir in "$@"; do
 done
 
 # Find a dominating file, starting from a given directory and going up.
-find-dominating-file() {
+find_dominating_file() {
     if [ -r "$1"/"$2" ]; then
         return 0
     fi
     if [ "$1" = "/" ]; then
         return 1
     fi
-    find-dominating-file "$(realpath "$1"/..)" "$2"
+    find_dominating_file "$(realpath "$1"/..)" "$2"
     return $?
 }
 
 # Run clang-format -i on all of the things
 for dir in "$@"; do
-    pushd "${dir}" &>/dev/null
-    if ! find-dominating-file . .clang-format; then
+    pushd "${dir}" &>/dev/null || exit
+    if ! find_dominating_file . .clang-format; then
         echo "Failed to find dominating .clang-format starting at $PWD"
         continue
     fi
@@ -80,5 +80,5 @@ for dir in "$@"; do
          -o -name '*.hh' \
          -o -name '*.hpp' \) \
          -exec "${FMT}" -i '{}' \;
-    popd &>/dev/null
+    popd &>/dev/null || exit
 done
